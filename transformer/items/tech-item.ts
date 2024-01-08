@@ -1,7 +1,7 @@
 import techsR from '../../dsp-data/techs.json'
 import { mapping } from '../../mapping'
 
-function mapRaptorModExtractorTechs(techs) {
+function mapDspTechs(techs) {
   return techs.filter(x => x.ID > 1).map(x => {
     const factoriolabId = mapping.techs[x.ID]
     const name = x.name
@@ -19,4 +19,4 @@ function mapRaptorModExtractorTechs(techs) {
   })
 }
 
-export const techItems = mapRaptorModExtractorTechs(techsR)
+export const techItems = mapDspTechs(techsR)

@@ -130,7 +130,7 @@ function generateMachineFromPrefab(prefabDesc) {
   }
 }
 
-function mapRaptorModExtractorBuildings(items) {
+function mapDspBuildings(items) {
   return items.filter(x => x.GridIndex >= 2000).map(x => {
     const factoriolabId = mapping.items[x.ID]
     const name = x.name
@@ -153,14 +153,16 @@ function mapRaptorModExtractorBuildings(items) {
 }
 
 function addAltBuildings(items) {
+  const rayReceiverId = "ray-receiver"
+  const rayReceiver = items.find(x => x.id === rayReceiverId)
   return [
     ...items,
     {
       "category": "buildings-alt",
-      "id": "ray-receiver-pro",
-      "name": "Ray receiver (Graviton lens)",
-      "row": 0,
-      "stack": 10,
+      "id": `${rayReceiverId}-pro`,
+      "name": `${rayReceiver.name} (Graviton lens)`,
+      "row": rayReceiver.row,
+      "stack": rayReceiver.stack,
       "machine": {
         "type": "burner",
         "speed": 1,
@@ -169,7 +171,7 @@ function addAltBuildings(items) {
           "lens"
         ]
       },
-      "icon": "ray-receiver"
+      "icon": rayReceiverId
     }
   ]
 }
@@ -243,4 +245,4 @@ function alterBuildingsManually(buildingItems) {
   })
 }
 
-export const buildingItems = alterBuildingsManually(addAltBuildings(mapRaptorModExtractorBuildings(itemsR)))
+export const buildingItems = alterBuildingsManually(addAltBuildings(mapDspBuildings(itemsR)))

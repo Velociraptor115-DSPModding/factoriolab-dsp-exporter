@@ -2,14 +2,14 @@ import itemsR from '../../dsp-data/items.json'
 import { mapping } from '../../mapping'
 import { parseGridIndex } from '../utils/grid-index-parser'
 
-const gravitonLensDspParserId = 'graviton-lens'
+const gravitonLensId = 'graviton-lens'
 const gravitonLensFuel = {
   "category": "lens",
   "value": 1
 }
 
 function genFuel(id: string, fuelType?: number, heatValue?: { value: string }) {
-  if (id === gravitonLensDspParserId) {
+  if (id === gravitonLensId) {
     return gravitonLensFuel
   }
   const category = (
@@ -27,7 +27,7 @@ function genFuel(id: string, fuelType?: number, heatValue?: { value: string }) {
   }
 }
 
-function mapRaptorModExtractorComponents(items) {
+function mapDspComponents(items) {
   return items.filter(x => x.GridIndex >= 1000 && x.GridIndex < 2000).map(x => {
     const factoriolabId = mapping.items[x.ID]
     const name = x.name
@@ -46,4 +46,4 @@ function mapRaptorModExtractorComponents(items) {
   })
 }
 
-export const componentItems = mapRaptorModExtractorComponents(itemsR)
+export const componentItems = mapDspComponents(itemsR)
