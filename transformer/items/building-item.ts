@@ -131,8 +131,7 @@ function generateMachineFromPrefab(prefabDesc) {
 }
 
 function mapRaptorModExtractorBuildings(items) {
-  // Special permission for turret jammer
-  return items.filter(x => x.GridIndex >= 2000 || x.ID === 3006).map(x => {
+  return items.filter(x => x.GridIndex >= 2000).map(x => {
     const factoriolabId = mapping.items[x.ID]
     const name = x.name
     const page = Math.floor(x.GridIndex / 1000)
