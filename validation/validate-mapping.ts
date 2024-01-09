@@ -1,7 +1,7 @@
-import { mapping } from "./mapping";
-import items from './dsp-data/items.json'
-import recipes from './dsp-data/recipes.json'
-import techs from './dsp-data/techs.json'
+import { mapping } from "../mapping";
+import items from '../dsp-data/items.json'
+import recipes from '../dsp-data/recipes.json'
+import techs from '../dsp-data/techs.json'
 
 function sortNullableNumber(a, b) {
   const aId = a ? a : 1000000
