@@ -4,7 +4,8 @@ import { mapping } from '../../mapping'
 function mapDspTechs(techs) {
   return techs.filter(x => x.ID > 1).map(x => {
     const factoriolabId = mapping.techs[x.ID]
-    const name = x.name
+    const level = x.Level
+    const name = level > 0 ? `${x.name} (Lv${level})` : x.name
     const category = x.ID >= 2000 ? "upgrades" : "technologies"
     const techPrerequisites = [...x.PreTechs ?? [], ...x.PreTechsImplicit ?? []]?.filter(y => y > 1)?.map(x => mapping.techs[x]) ?? []
     return {
