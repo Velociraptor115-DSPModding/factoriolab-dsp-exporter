@@ -2,7 +2,7 @@ import { factoriolabPath, useFactoriolabMapping } from "../external-dependencies
 import { join } from "node:path"
 import { readFileSync } from "node:fs"
 
-import type { DspItemId, DspRecipeId, DspTechId, FactorioLabId } from "../types";
+import type { DspItemId, DspRecipeId, DspTechId, DspVeinId, FactorioLabId } from "../types";
 
 
 export type DspFactorioLabMappingEntry<K extends string | number, V> = {
@@ -13,6 +13,7 @@ export type DspFactorioLabMapping = {
   recipes: DspFactorioLabMappingEntry<DspRecipeId, FactorioLabId>
   items: DspFactorioLabMappingEntry<DspItemId, FactorioLabId>
   techs: DspFactorioLabMappingEntry<DspTechId, FactorioLabId>
+  veins: DspFactorioLabMappingEntry<DspVeinId, FactorioLabId>
 }
 
 function loadMappingJson(mapFilePath) {
