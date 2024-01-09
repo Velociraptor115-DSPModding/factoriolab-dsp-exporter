@@ -18,27 +18,35 @@ function normalizeData(data, sortFn) {
   const limitations = {
     productivity: [...data.limitations.productivity].sort()
   }
+  const defaults = {
+    ...data.defaults,
+    minMachineRank: [...data.defaults.minMachineRank].sort(),
+    maxMachineRank: [...data.defaults.maxMachineRank].sort(),
+    moduleRank: [...data.defaults.moduleRank].sort(),
+    excludedRecipes: [...data.defaults.excludedRecipes].sort(),
+  }
 
   return {
     ...data,
     items,
     recipes,
     icons,
-    limitations
+    limitations,
+    defaults
   }
 }
 
 function adjustForCompare(data) {
   return {
     ...data,
-    // items: data.items.map(x => ({ ...x, name: undefined, stack: undefined, row: undefined })),
-    items: data.items.map(x => ({ id: x.id, name: x.name?.toLowerCase() })),
+    items: data.items.map(x => ({ ...x, name: undefined, stack: undefined, row: undefined })),
+    // items: data.items.map(x => ({ id: x.id, name: x.name?.toLowerCase() })),
     // items: [ ],
     icons: [ ],
-    // recipes: data.recipes.map(x => ({ ...x, name: undefined, row: undefined, producers: x.producers[0] })),
+    recipes: data.recipes.map(x => ({ ...x, name: undefined, row: undefined, producers: x.producers[0] })),
     // recipes: data.recipes.map(x => ({ id: x.id, producers: x.producers })),
-    recipes: [ ],
-    limitations: { },
+    // recipes: [ ],
+    // limitations: { },
     // version: undefined,
     // defaults: undefined
   }
