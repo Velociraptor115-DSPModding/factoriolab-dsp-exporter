@@ -2,6 +2,8 @@ import { readFileSync, writeFileSync } from 'node:fs'
 import { data } from '../transformer/data'
 import { compareFactoriolabArrayElements, compareFactoriolabCategoryAndIds } from '../transformer/utils/comparers'
 import { stableStringify } from '../transformer/utils/stable-stringify'
+import { join } from "node:path"
+import { factoriolabPath } from '../external-dependencies'
 
 function introduceExistingIndex(data) {
   return {
@@ -62,3 +64,9 @@ const factoriolabJson = stableStringify(adjustForCompare(normalizeData(introduce
 writeFileSync('./compare/factoriolab-data.json', factoriolabJson)
 const factoriolabJsonIdOrdered = stableStringify(adjustForCompare(normalizeData(introduceExistingIndex(factoriolabRawJson), compareFactoriolabCategoryAndIds)))
 writeFileSync('./compare/factoriolab-data-id-ordered.json', factoriolabJsonIdOrdered)
+
+const latestFactoriolabRawJson = JSON.parse(readFileSync(join(factoriolabPath, 'src', 'data', 'dsp', 'data.json'), { encoding: 'utf8' }))
+const latestFactoriolabJson = stableStringify(adjustForCompare(normalizeData(introduceExistingIndex(latestFactoriolabRawJson), compareFactoriolabArrayElements)))
+writeFileSync('./compare/latest-factoriolab-data.json', latestFactoriolabJson)
+const latestFactoriolabJsonIdOrdered = stableStringify(adjustForCompare(normalizeData(introduceExistingIndex(latestFactoriolabRawJson), compareFactoriolabCategoryAndIds)))
+writeFileSync('./compare/latest-factoriolab-data-id-ordered.json', latestFactoriolabJsonIdOrdered)
