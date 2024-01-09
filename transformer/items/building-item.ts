@@ -1,6 +1,7 @@
 import itemsR from '../../dsp-data/items.json'
 import { mapping } from '../../mapping'
 import { parseGridIndex } from '../utils/grid-index-parser'
+import { performManualInterventions } from '../utils/manual-intervention'
 
 function genFuel(id: string, fuelType?: number, heatValue?: { value: string }) {
   const category = (
@@ -235,14 +236,7 @@ const buildingsToManuallyAlter = [
   }
 ]
 
-function alterBuildingsManually(buildingItems) {
-  return buildingItems.map(x => {
-    const manualAlteration = buildingsToManuallyAlter.find(y => x.id === y.id)
-    if (manualAlteration) {
-      return manualAlteration.alter(x)
-    }
-    return x
-  })
-}
 
-export const buildingItems = alterBuildingsManually(addAltBuildings(mapDspBuildings(itemsR)))
+export const buildingItems = performManualInterventions(addAltBuildings(mapDspBuildings(itemsR)), {
+  alterations: buildingsToManuallyAlter,
+})
