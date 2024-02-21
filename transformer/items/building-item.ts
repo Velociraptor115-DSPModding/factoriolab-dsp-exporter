@@ -184,7 +184,7 @@ function alterUsageTo(usage) {
 function removeElectricUsage() {
   return x => ({
     ...x, machine: {
-      ...x.machine, type: undefined, usage: undefined
+      ...x.machine, type: undefined, usage: undefined, drain: undefined
     }
   })
 }
@@ -232,7 +232,7 @@ const buildingsToManuallyAlter = [
   },
   {
     id: "mining-machine",
-    alter: divideElectricUsageBy(6)
+    alter: removeElectricUsage()
   }
 ]
 
