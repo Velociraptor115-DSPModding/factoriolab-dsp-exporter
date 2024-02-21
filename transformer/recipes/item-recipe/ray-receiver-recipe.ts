@@ -23,16 +23,19 @@ export const rayReceiverRecipes = performManualInterventions(rayReceivers.flatMa
   const powerRequiredInKW = 2.5 * 8 * (rayReceiver.prefabDesc.genEnergyPerTick! * 60 / 1000)
   const powerRequiredInKWWithCatalyst = 2 * powerRequiredInKW
 
+  const timeValue = 60
+  const timeRatio = (powerRequired) => timeValue / ((rayReceiver.prefabDesc.powerProductHeat! / 1000) / powerRequired)
+
   return [
     // Regular
     {
       id: mappedFactoriolabProduct.id,
       name: product.name,
       cost: 100,
-      time: ((rayReceiver.prefabDesc.powerProductHeat! / 1000) / powerRequiredInKW),
+      time: 60,
       in: {},
       out: {
-        [mapping.items[product.ID]]: 1,
+        [mapping.items[product.ID]]: 1 * timeRatio(powerRequiredInKW),
       },
       producers: [
         mapping.items[rayReceiver.ID],
@@ -46,14 +49,15 @@ export const rayReceiverRecipes = performManualInterventions(rayReceivers.flatMa
       id: `${mappedFactoriolabProduct.id}-${mappedFactoriolabCatalyst.id}`,
       name: `${product.name} (${catalyst.name})`,
       cost: 100,
-      time: ((rayReceiver.prefabDesc.powerProductHeat! / 1000) / powerRequiredInKWWithCatalyst),
+      time: 60,
       in: {},
       out: {
-        [mapping.items[product.ID]]: 1,
+        [mapping.items[product.ID]]: 1 * timeRatio(powerRequiredInKWWithCatalyst),
       },
       producers: [
         `${mapping.items[rayReceiver.ID]}-pro`,
       ],
+      usage: "5/3", // I have no clue why this is 5/3, but that's how it was in the data.json file originally, so I'm leaving it in as is
       row: mappedFactoriolabProduct.row,
       category: mappedFactoriolabProduct.category,
       unlockedBy: mapping.techs[product.preTech!.ID],
